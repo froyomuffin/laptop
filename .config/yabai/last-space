@@ -1,0 +1,32 @@
+#!/bin/bash
+
+LAST_FILE=/tmp/last-space
+
+function focused_space {
+  yabai -m query --spaces --display | jq '.[] | select(."has-focus"==true) | ."index"' | awk 'NF'
+}
+
+function last {
+  if [[ -f $LAST_FILE ]]; then
+    cat $LAST_FILE | tail -2 | head -1
+  else
+    echo 1
+  fi
+}
+
+function update {
+  focused_space >> $LAST_FILE
+}
+
+CMD=$1
+
+case $CMD in
+  "last")
+    last
+    ;;
+  "update")
+    update
+    ;;
+  *)
+    echo "Unknown command \"$CMD\""
+esac

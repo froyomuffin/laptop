@@ -1,0 +1,52 @@
+{
+  "title": "Basic remappings",
+  "rules": [
+    {
+      "description": "Remap CMD+Q to CMD+W",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory":[
+                "left_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": ["left_control"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "LeftCommand + Escape to Grave/Tilde",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "escape",
+            "modifiers": {
+              "mandatory":[
+                "left_control"
+              ],
+              "optional": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "grave_accent_and_tilde"
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+}

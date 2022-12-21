@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# The $SELECTED variable is available for space components and indicates if
+# the space invoking this script (with name: $NAME) is currently selected:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+
+# Only render spaces that are non-empty or selected
+NON_EMPTY=`yabai -m query --spaces --display | jq '.[] | select(.windows!=[]) | ."index"' | awk 'NF' | grep -q "^$SID$" && echo "true" || echo "false"`
+HAS_FOCUS=`yabai -m query --spaces --display | jq '.[] | select(."has-focus"==true) | ."index"' | awk 'NF' | grep -q "^$SID$" && echo "true" || echo "false"`
+
+terminal-notifier -title 'Plugin' -message "NAME: $NAME, SELECTED: $SELECTED, HAS_FOCUS: $HAS_FOCUS, SID: $SID, NON_EMPTY: $NON_EMPTY"
+
+if [[ "$HAS_FOCUS" == "true" ]]; then
+  terminal-notifier -title 'Plugin' -message "SID: $SID is selected as per HAS_FOCUS"
+fi
+
+if [[ "$SELECTED" == "true" ]]; then
+  terminal-notifier -title 'Plugin' -message "SID: $SID is selected as per SELECTED"
+fi
+
+if [[ "$SELECTED" == "true" ]]; then
+  terminal-notifier -title 'Plugin' -message "SID: $SID is selected"
+  sketchybar --set $NAME background.drawing=$HAS_FOCUS drawing=true
+else
+  sketchybar --set $NAME background.drawing=$HAS_FOCUS drawing=$NON_EMPTY
+fi

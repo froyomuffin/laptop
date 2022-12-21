@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+function is_non_empty {
+  SID=$1
+  yabai -m query --spaces --display | jq '.[] | select(.windows!=[]) | ."index"' | awk 'NF' | grep -q "^$SID$" && echo "true" || echo "false"
+}
+
+function is_focused {
+  SID=$1
+  yabai -m query --spaces --display | jq '.[] | select(."has-focus"==true) | ."index"' | awk 'NF' | grep -q "^$SID$" && echo "true" || echo "false"
+}
+
+for SID in {1..10}; do
+  IS_NON_EMPTY=`is_non_empty $SID`
+  IS_FOCUSED=`is_focused $SID`
+  NAME="space.$SID"
+
+  if [[ "$IS_FOCUSED" == "true" ]]; then
+    sketchybar --set $NAME background.drawing=$IS_FOCUSED drawing=true
+  else
+    sketchybar --set $NAME background.drawing=$IS_FOCUSED drawing=$IS_NON_EMPTY
+  fi
+done
