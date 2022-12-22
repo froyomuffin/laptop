@@ -10,14 +10,14 @@
             "key_code": "q",
             "modifiers": {
               "mandatory":[
-                "left_control"
+                "left_command"
               ]
             }
           },
           "to": [
             {
               "key_code": "w",
-              "modifiers": ["left_control"]
+              "modifiers": ["left_command"]
             }
           ]
         }

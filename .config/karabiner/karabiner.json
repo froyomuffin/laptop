@@ -24,7 +24,7 @@
                                     "key_code": "q",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     }
                                 },
@@ -32,7 +32,7 @@
                                     {
                                         "key_code": "w",
                                         "modifiers": [
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     }
                                 ],
